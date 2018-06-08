@@ -1,0 +1,19 @@
+multipass: true
+js2svg:
+  pretty: true
+  indent: '  '
+plugins:
+  - convertPathData: true
+  - removeTitle: true
+  - removeAttrs:
+      attrs:
+        - aria-label
+        - data-name
+        - font-family
+        - font-size
+        - font-weight
+        - letter-spacing
+        - style
+        - word-spacing
+        - xmlns
+  - sortAttrs: true

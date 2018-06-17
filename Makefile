@@ -22,7 +22,7 @@ logo-scaled-inkscaped.svg: logo-scaled-text.svg
 	mv $@.tmp.svg $@
 
 logo-scaled-text.svg: logo-test-inkscaped.svg
-	svg() { echo "<svg width=\"500\" height=\"500\"><text x=\"-10\" y=\"366.61122145575171109017\" font-family=\"$$1\" font-weight=\"$$2\" font-size=\"$$3\">$$4</text></svg>"; }; \
+	svg() { echo "<svg width=\"500\" height=\"500\"><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" dominant-baseline=\"middle\" font-family=\"$$1\" font-weight=\"$$2\" font-size=\"$$3\">$$4</text></svg>"; }; \
 	svg 'Zilla Slab' 'bold' '495.16442231741703223005' 'ov' > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg

@@ -3,7 +3,7 @@ all: html.html
 html.html: logo-optimized.svg
 	{ echo '<!DOCTYPE html><html><body>'; cat $<; } > $@
 
-logo-optimized.svg: logo-inkscaped.svg
+logo-optimized.svg: logo-inkscaped.svg config-svgo.yml
 	./node_modules/.bin/svgo --config config-svgo.yml -i $< -o $@
 
 logo-inkscaped.svg: logo-text.svg

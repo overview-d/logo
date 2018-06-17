@@ -17,7 +17,7 @@ logo-scaled-inkscaped.svg: logo-scaled-text.svg
 		--verb AlignVerticalCenter \
 		--verb FileSave \
 		--verb FileQuit \
-		$(CURDIR)/$@.tmp.svg \
+		$@.tmp.svg \
 		;
 	mv $@.tmp.svg $@
 
@@ -31,7 +31,7 @@ logo-test-inkscaped.svg: logo-test-text.svg
 		--verb FitCanvasToDrawing \
 		--verb FileSave \
 		--verb FileQuit \
-		$(CURDIR)/$@.tmp.svg \
+		$@.tmp.svg \
 		;
 	mv $@.tmp.svg $@
 

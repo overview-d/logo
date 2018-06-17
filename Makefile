@@ -1,7 +1,7 @@
 all: html.html
 
 html.html: logo-scaled-optimized.svg
-	{ echo '<!DOCTYPE html><html><body style="margin: 0">'; cat $<; } > $@
+	{ echo '<!DOCTYPE html><html><head><style>svg{background-color:goldenrod}</style></head><body style="margin: 0">'; cat $<; } > $@
 
 logo-scaled-optimized.svg: logo-scaled-inkscaped.svg config-svgo.yml
 	./node_modules/.bin/svgo --config config-svgo.yml -i $< -o $@

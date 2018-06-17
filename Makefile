@@ -20,8 +20,9 @@ logo-inkscaped.svg: logo-text.svg
 		;
 	mv $@.tmp.svg $@
 
-logo-text.svg: script-text-svg.sh
-	./script-text-svg.sh 'Zilla Slab' 'bold' 'ov' > $@
+logo-text.svg: Makefile
+	svg() { echo "<svg><text font-family=\"$$1\" font-weight=\"$$2\">$$3</text></svg>"; }; \
+	svg 'Zilla Slab' 'bold' 'ov' > $@
 
 clean:
 	rm -f html.html

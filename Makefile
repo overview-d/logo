@@ -55,7 +55,7 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "</svg>"; \
 	}; \
 	font_size() { \
-		expression "`width`" "`height`" | bc -l; \
+		expression "`query width`" "`query height`" | bc -l; \
 	}; \
 	expression() { \
 		echo "define max(a, b) {"; \
@@ -65,11 +65,8 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "}"; \
 		echo "( $(LOGO_SIZE) * $(TEST_FONT_SIZE) ) / max($$1, $$2)"; \
 	}; \
-	width() { \
-		inkscape --query-width $(CURDIR)/$<; \
-	}; \
-	height() { \
-		inkscape --query-height $(CURDIR)/$<; \
+	query() { \
+		inkscape --query-$$1 $(CURDIR)/$<; \
 	}; \
 	svg 'Zilla Slab' 'bold' "`font_size`" 'ov' > $@
 

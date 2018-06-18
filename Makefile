@@ -50,7 +50,10 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "    >$$4</text>"; \
 		echo "</svg>"; \
 	}; \
-	svg 'Zilla Slab' 'bold' '495.16442231741703223005' 'ov' > $@
+	font_size() { \
+		echo '495.16442231741703223005'; \
+	}; \
+	svg 'Zilla Slab' 'bold' "`font_size`" 'ov' > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg
 	cp $< $@.tmp.svg

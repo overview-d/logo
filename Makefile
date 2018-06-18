@@ -1,3 +1,5 @@
+TEST_FONT_SIZE = 1000
+
 all: html.html
 
 html.html: logo-scaled-optimized.svg
@@ -51,7 +53,7 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "</svg>"; \
 	}; \
 	font_size() { \
-		echo "(500 * 1000) / `width`" | bc -l; \
+		echo "(500 * $(TEST_FONT_SIZE)) / `width`" | bc -l; \
 	}; \
 	width() { \
 		inkscape --query-width $(CURDIR)/$<; \
@@ -78,7 +80,7 @@ logo-test-text.svg: Makefile
 		echo "    >$$4</text>"; \
 		echo "</svg>"; \
 	}; \
-	svg 'Zilla Slab' 'bold' '1000' 'ov' > $@
+	svg 'Zilla Slab' 'bold' '$(TEST_FONT_SIZE)' 'ov' > $@
 
 clean:
 	rm -f html.html

@@ -1,3 +1,5 @@
+LOGO_SIZE = 500
+
 TEST_FONT_SIZE = 1000
 
 all: html.html
@@ -40,7 +42,7 @@ logo-scaled-inkscaped.svg: logo-scaled-text.svg
 
 logo-scaled-text.svg: logo-test-inkscaped.svg
 	svg() { \
-		echo "<svg width=\"500\" height=\"500\">"; \
+		echo "<svg width=\"$(LOGO_SIZE)\" height=\"$(LOGO_SIZE)\">"; \
 		echo "  <text"; \
 		echo "    x=\"50%\""; \
 		echo "    y=\"50%\""; \
@@ -53,7 +55,7 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "</svg>"; \
 	}; \
 	font_size() { \
-		echo "(500 * $(TEST_FONT_SIZE)) / `width`" | bc -l; \
+		echo "($(LOGO_SIZE) * $(TEST_FONT_SIZE)) / `width`" | bc -l; \
 	}; \
 	width() { \
 		inkscape --query-width $(CURDIR)/$<; \

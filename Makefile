@@ -15,7 +15,7 @@ logo-scaled-inkscaped.svg: logo-scaled-text.svg
 		--verb SelectionUnion \
 		--verb FileSave \
 		--verb FileQuit \
-		$@.tmp.svg \
+		$(CURDIR)/$@.tmp.svg \
 		;
 	mv $@.tmp.svg $@
 
@@ -29,7 +29,7 @@ logo-test-inkscaped.svg: logo-test-text.svg
 		--verb FitCanvasToDrawing \
 		--verb FileSave \
 		--verb FileQuit \
-		$@.tmp.svg \
+		$(CURDIR)/$@.tmp.svg \
 		;
 	mv $@.tmp.svg $@
 

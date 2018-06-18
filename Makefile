@@ -55,10 +55,21 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "</svg>"; \
 	}; \
 	font_size() { \
-		echo "($(LOGO_SIZE) * $(TEST_FONT_SIZE)) / `width`" | bc -l; \
+		expression "`width`" "`height`" | bc -l; \
+	}; \
+	expression() { \
+		echo "define max(a, b) {"; \
+		echo "  if (a < b)"; \
+		echo "    return (b);"; \
+		echo "  return (a);"; \
+		echo "}"; \
+		echo "( $(LOGO_SIZE) * $(TEST_FONT_SIZE) ) / max($$1, $$2)"; \
 	}; \
 	width() { \
 		inkscape --query-width $(CURDIR)/$<; \
+	}; \
+	height() { \
+		inkscape --query-height $(CURDIR)/$<; \
 	}; \
 	svg 'Zilla Slab' 'bold' "`font_size`" 'ov' > $@
 

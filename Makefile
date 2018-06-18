@@ -13,8 +13,6 @@ logo-scaled-inkscaped.svg: logo-scaled-text.svg
 		--verb ObjectToPath \
 		--verb SelectionUnGroup \
 		--verb SelectionUnion \
-		--verb AlignHorizontalCenter \
-		--verb AlignVerticalCenter \
 		--verb FileSave \
 		--verb FileQuit \
 		$@.tmp.svg \

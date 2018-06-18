@@ -51,7 +51,10 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "</svg>"; \
 	}; \
 	font_size() { \
-		echo '495.16442231741703223005'; \
+		echo "(500 * 1000) / `width`" | bc -l; \
+	}; \
+	width() { \
+		inkscape --query-width $(CURDIR)/$<; \
 	}; \
 	svg 'Zilla Slab' 'bold' "`font_size`" 'ov' > $@
 

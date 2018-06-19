@@ -28,13 +28,28 @@ logo-optimized.svg: config-svgo.yml logo-transformed.svg
 
 logo-transformed.svg: part-path part-max part-width part-height
 	svg() { \
-		echo "<svg width=\"$(LOGO_SIZE)\" height=\"$(LOGO_SIZE)\">"; \
-		echo "  <g>"; \
+		echo "<svg width=\"$$1\" height=\"$$1\">"; \
+		echo "  <g transform=\""; \
+		echo "      scale("; \
+		echo "        `scale "$$1" "$$2"`"; \
+		echo "      )"; \
+		echo "      translate("; \
+		echo "        `offset "$$1" "$$2" "$$3"`"; \
+		echo "        ,"; \
+		echo "        `offset "$$1" "$$2" "$$4"`"; \
+		echo "      )"; \
+		echo "    \">"; \
 		cat $<; \
 		echo "  </g>"; \
 		echo "</svg>"; \
 	}; \
-	svg > $@
+	scale() { \
+		echo "$$1 / $$2" | bc -l; \
+	}; \
+	offset() { \
+		echo "$$1 / 2 - ( $$1 * $$3 ) / (2 * $$2)" | bc -l; \
+	}; \
+	svg "$(LOGO_SIZE)" "`cat part-max`" "`cat part-width`" "`cat part-height`" > $@
 
 part-max: part-height part-width
 	expression() { \

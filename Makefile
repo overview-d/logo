@@ -49,7 +49,7 @@ logo-transformed.svg: part-path part-max part-width part-height
 		echo "$$1 / $$2" | bc -l; \
 	}; \
 	offset() { \
-		echo "$$1 / 2 - ( $$1 * $$3 ) / (2 * $$2)" | bc -l; \
+		echo "$$1 / 2 - ( $$1 * $$3 ) / ( 2 * $$2 )" | bc -l; \
 	}; \
 	svg '$(LOGO_SIZE)' "`cat part-max`" "`cat part-width`" "`cat part-height`" > $@
 

@@ -37,10 +37,10 @@ logo-transformed.svg: part-path part-height part-width part-max
 	svg > $@
 
 part-max: part-height part-width
-	max() { \
-		expression "`cat "$$1"`" "`cat "$$2"`"; \
-	}; \
 	expression() { \
+		max "`cat "$$1"`" "`cat "$$2"`"; \
+	}; \
+	max() { \
 		echo "define max(a, b) {"; \
 		echo "  if (a < b)"; \
 		echo "    return (b);"; \
@@ -48,7 +48,7 @@ part-max: part-height part-width
 		echo "}"; \
 		echo "max($$1, $$2)"; \
 	}; \
-	max $^ | bc -l > $@
+	expression $^ | bc -l > $@
 
 part-path: logo-path.svg
 	xmllint --xpath '//*[local-name()="path"]' $< > $@

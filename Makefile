@@ -61,7 +61,7 @@ part-height: logo-test-inkscaped.svg
 part-width: logo-test-inkscaped.svg
 	xmllint --xpath 'string(/*[local-name()="svg"]/@width)' $< > $@
 
-logo-test-inkscaped.svg: logo-test-text.svg
+logo-test-inkscaped.svg: logo-text.svg
 	cp $< $@.tmp.svg
 	inkscape \
 		--verb EditSelectAll \
@@ -75,7 +75,7 @@ logo-test-inkscaped.svg: logo-test-text.svg
 		;
 	mv $@.tmp.svg $@
 
-logo-test-text.svg: Makefile
+logo-text.svg: Makefile
 	svg() { \
 		echo "<svg>"; \
 		echo "  <text"; \
@@ -97,4 +97,4 @@ clean:
 	rm -f part-width
 	rm -f logo-test-inkscaped.svg
 	rm -f logo-test-inkscaped.svg.tmp.svg
-	rm -f logo-test-text.svg
+	rm -f logo-text.svg

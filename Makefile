@@ -52,16 +52,16 @@ part-max: part-height part-width
 	}; \
 	max $^ | bc -l > $@
 
-part-path: logo-test-inkscaped.svg
+part-path: logo-path.svg
 	xmllint --xpath '//*[local-name()="path"]' $< > $@
 
-part-height: logo-test-inkscaped.svg
+part-height: logo-path.svg
 	xmllint --xpath 'string(/*[local-name()="svg"]/@height)' $< > $@
 
-part-width: logo-test-inkscaped.svg
+part-width: logo-path.svg
 	xmllint --xpath 'string(/*[local-name()="svg"]/@width)' $< > $@
 
-logo-test-inkscaped.svg: logo-text.svg
+logo-path.svg: logo-text.svg
 	cp $< $@.tmp.svg
 	inkscape \
 		--verb EditSelectAll \
@@ -95,6 +95,6 @@ clean:
 	rm -f part-max
 	rm -f part-path
 	rm -f part-width
-	rm -f logo-test-inkscaped.svg
-	rm -f logo-test-inkscaped.svg.tmp.svg
+	rm -f logo-path.svg
+	rm -f logo-path.svg.tmp.svg
 	rm -f logo-text.svg

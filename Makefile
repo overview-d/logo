@@ -6,7 +6,7 @@ TEST_FONT_SIZE = 1000
 all: html.html
 
 html.html: logo-optimized.svg
-	main() { \
+	header() { \
 		echo '<!DOCTYPE html>'; \
 		echo '<html>'; \
 		echo '<head>'; \
@@ -20,10 +20,8 @@ html.html: logo-optimized.svg
 		echo '  </style>'; \
 		echo '</head>'; \
 		echo '<body>'; \
-		echo; \
-		cat $<; \
 	}; \
-	main > $@
+	{ header; echo; cat $<; } > $@
 
 logo-optimized.svg: config-svgo.yml logo-transformed.svg
 	./node_modules/.bin/svgo -o $@ --config $^

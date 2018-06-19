@@ -56,10 +56,10 @@ part-path: logo-test-inkscaped.svg
 	xmllint --xpath '//*[local-name()="path"]' $< > $@
 
 part-height: logo-test-inkscaped.svg
-	inkscape --query-height $(CURDIR)/$< > $@
+	xmllint --xpath 'string(/*[local-name()="svg"]/@height)' $< > $@
 
 part-width: logo-test-inkscaped.svg
-	inkscape --query-width $(CURDIR)/$< > $@
+	xmllint --xpath 'string(/*[local-name()="svg"]/@width)' $< > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg
 	cp $< $@.tmp.svg

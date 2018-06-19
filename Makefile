@@ -1,4 +1,5 @@
 LOGO_SIZE = 500
+LOGO_TEXT = ov
 
 FONT_FAMILY = Zilla Slab
 FONT_WEIGHT = bold
@@ -99,7 +100,7 @@ logo-text.svg: Makefile
 		echo "    >$$4</text>"; \
 		echo "</svg>"; \
 	}; \
-	svg '$(FONT_FAMILY)' '$(FONT_WEIGHT)' '$(FONT_SIZE)' 'ov' > $@
+	svg '$(FONT_FAMILY)' '$(FONT_WEIGHT)' '$(FONT_SIZE)' '$(LOGO_TEXT)' > $@
 
 clean:
 	rm -f html.html

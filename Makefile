@@ -1,5 +1,6 @@
 LOGO_SIZE = 500
 
+FONT_FAMILY = Zilla Slab
 TEST_FONT_SIZE = 1000
 
 all: html.html
@@ -73,7 +74,7 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 	text_x() { \
 		xmllint --xpath 'string(//*[local-name()="text"]/@x)' $<; \
 	}; \
-	svg 'Zilla Slab' 'bold' "`font_size`" "`offset`" 'ov' > $@
+	svg '$(FONT_FAMILY)' 'bold' "`font_size`" "`offset`" 'ov' > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg
 	cp $< $@.tmp.svg
@@ -95,7 +96,7 @@ logo-test-text.svg: Makefile
 		echo "    >$$4</text>"; \
 		echo "</svg>"; \
 	}; \
-	svg 'Zilla Slab' 'bold' '$(TEST_FONT_SIZE)' 'ov' > $@
+	svg '$(FONT_FAMILY)' 'bold' '$(TEST_FONT_SIZE)' 'ov' > $@
 
 clean:
 	rm -f html.html

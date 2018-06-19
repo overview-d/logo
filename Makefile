@@ -30,13 +30,13 @@ logo-transformed.svg: part-path part-max part-width part-height
 	svg() { \
 		echo "<svg width=\"$$1\" height=\"$$1\">"; \
 		echo "  <g transform=\""; \
-		echo "      scale("; \
-		echo "        `scale "$$1" "$$2"`"; \
-		echo "      )"; \
 		echo "      translate("; \
 		echo "        `offset "$$1" "$$2" "$$3"`"; \
 		echo "        ,"; \
 		echo "        `offset "$$1" "$$2" "$$4"`"; \
+		echo "      )"; \
+		echo "      scale("; \
+		echo "        `scale "$$1" "$$2"`"; \
 		echo "      )"; \
 		echo "    \">"; \
 		cat $<; \

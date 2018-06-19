@@ -25,8 +25,8 @@ html.html: logo-optimized.svg
 	}; \
 	main > $@
 
-logo-optimized.svg: logo-transformed.svg config-svgo.yml
-	./node_modules/.bin/svgo --config config-svgo.yml -i $< -o $@
+logo-optimized.svg: config-svgo.yml logo-transformed.svg
+	./node_modules/.bin/svgo -o $@ --config $^
 
 logo-transformed.svg: part-path part-height part-width part-max
 	svg() { \

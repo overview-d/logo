@@ -44,13 +44,13 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 	svg() { \
 		echo "<svg width=\"$(LOGO_SIZE)\" height=\"$(LOGO_SIZE)\">"; \
 		echo "  <text"; \
+		echo "    font-family=\"$$1\""; \
+		echo "    font-weight=\"$$2\""; \
+		echo "    font-size=\"$$3\""; \
 		echo "    x=\"50%\""; \
 		echo "    y=\"50%\""; \
 		echo "    text-anchor=\"middle\""; \
 		echo "    dominant-baseline=\"middle\""; \
-		echo "    font-family=\"$$1\""; \
-		echo "    font-weight=\"$$2\""; \
-		echo "    font-size=\"$$3\""; \
 		echo "    >$$4</text>"; \
 		echo "</svg>"; \
 	}; \

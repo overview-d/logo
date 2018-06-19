@@ -5,7 +5,7 @@ TEST_FONT_SIZE = 1000
 
 all: html.html
 
-html.html: logo-scaled-optimized.svg
+html.html: logo-optimized.svg
 	main() { \
 		echo '<!DOCTYPE html>'; \
 		echo '<html>'; \
@@ -25,37 +25,22 @@ html.html: logo-scaled-optimized.svg
 	}; \
 	main > $@
 
-logo-scaled-optimized.svg: logo-scaled-inkscaped.svg config-svgo.yml
+logo-optimized.svg: logo-transformed.svg config-svgo.yml
 	./node_modules/.bin/svgo --config config-svgo.yml -i $< -o $@
 
-logo-scaled-inkscaped.svg: logo-scaled-text.svg
-	cp $< $@.tmp.svg
-	inkscape \
-		--verb EditSelectAll \
-		--verb ObjectToPath \
-		--verb SelectionUnGroup \
-		--verb SelectionUnion \
-		--verb FileSave \
-		--verb FileQuit \
-		$(CURDIR)/$@.tmp.svg \
-		;
-	mv $@.tmp.svg $@
-
-logo-scaled-text.svg: logo-test-inkscaped.svg
+logo-transformed.svg: part-path part-height part-width part-max
 	svg() { \
 		echo "<svg width=\"$(LOGO_SIZE)\" height=\"$(LOGO_SIZE)\">"; \
-		echo "  <text"; \
-		echo "    font-family=\"$$1\""; \
-		echo "    font-weight=\"$$2\""; \
-		echo "    font-size=\"$$3\""; \
-		echo "    x=\"$$4\""; \
-		echo "    y=\"50%\""; \
-		echo "    dominant-baseline=\"middle\""; \
-		echo "    >$$5</text>"; \
+		echo "  <g>"; \
+		cat $<; \
+		echo "  </g>"; \
 		echo "</svg>"; \
 	}; \
-	font_size() { \
-		expression "`query width`" "`query height`" | bc -l; \
+	svg > $@
+
+part-max: part-height part-width
+	max() { \
+		expression "`cat "$$1"`" "`cat "$$2"`"; \
 	}; \
 	expression() { \
 		echo "define max(a, b) {"; \
@@ -63,23 +48,27 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "    return (b);"; \
 		echo "  return (a);"; \
 		echo "}"; \
-		echo "( $(LOGO_SIZE) * $(TEST_FONT_SIZE) ) / max($$1, $$2)"; \
+		echo "max($$1, $$2)"; \
 	}; \
-	query() { \
-		inkscape --query-$$1 $(CURDIR)/$<; \
-	}; \
-	offset() { \
-		echo "`text_x` / 2" | bc -l; \
-	}; \
-	text_x() { \
-		xmllint --xpath 'string(//*[local-name()="text"]/@x)' $<; \
-	}; \
-	svg '$(FONT_FAMILY)' 'bold' "`font_size`" "`offset`" 'ov' > $@
+	max $^ | bc -l > $@
+
+part-path: logo-test-inkscaped.svg
+	xmllint --xpath '//*[local-name()="path"]' $< > $@
+
+part-height: logo-test-inkscaped.svg
+	inkscape --query-height $(CURDIR)/$< > $@
+
+part-width: logo-test-inkscaped.svg
+	inkscape --query-width $(CURDIR)/$< > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg
 	cp $< $@.tmp.svg
 	inkscape \
+		--verb EditSelectAll \
 		--verb FitCanvasToDrawing \
+		--verb ObjectToPath \
+		--verb SelectionUnGroup \
+		--verb SelectionUnion \
 		--verb FileSave \
 		--verb FileQuit \
 		$(CURDIR)/$@.tmp.svg \
@@ -100,10 +89,12 @@ logo-test-text.svg: Makefile
 
 clean:
 	rm -f html.html
-	rm -f logo-scaled-optimized.svg
-	rm -f logo-scaled-inkscaped.svg
-	rm -f logo-scaled-inkscaped.svg.tmp.svg
-	rm -f logo-scaled-text.svg
+	rm -f logo-optimized.svg
+	rm -f logo-transformed.svg
+	rm -f part-height
+	rm -f part-max
+	rm -f part-path
+	rm -f part-width
 	rm -f logo-test-inkscaped.svg
 	rm -f logo-test-inkscaped.svg.tmp.svg
 	rm -f logo-test-text.svg

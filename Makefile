@@ -26,7 +26,7 @@ html.html: logo-optimized.svg
 logo-optimized.svg: config-svgo.yml logo-transformed.svg
 	./node_modules/.bin/svgo -o $@ --config $^
 
-logo-transformed.svg: part-path part-height part-width part-max
+logo-transformed.svg: part-path part-max part-width part-height
 	svg() { \
 		echo "<svg width=\"$(LOGO_SIZE)\" height=\"$(LOGO_SIZE)\">"; \
 		echo "  <g>"; \

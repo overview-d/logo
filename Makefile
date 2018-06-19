@@ -47,11 +47,10 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 		echo "    font-family=\"$$1\""; \
 		echo "    font-weight=\"$$2\""; \
 		echo "    font-size=\"$$3\""; \
-		echo "    x=\"50%\""; \
+		echo "    x=\"$$4\""; \
 		echo "    y=\"50%\""; \
-		echo "    text-anchor=\"middle\""; \
 		echo "    dominant-baseline=\"middle\""; \
-		echo "    >$$4</text>"; \
+		echo "    >$$5</text>"; \
 		echo "</svg>"; \
 	}; \
 	font_size() { \
@@ -68,7 +67,13 @@ logo-scaled-text.svg: logo-test-inkscaped.svg
 	query() { \
 		inkscape --query-$$1 $(CURDIR)/$<; \
 	}; \
-	svg 'Zilla Slab' 'bold' "`font_size`" 'ov' > $@
+	offset() { \
+		echo "`text_x` / 2" | bc -l; \
+	}; \
+	text_x() { \
+		xmllint --xpath 'string(//*[local-name()="text"]/@x)' $<; \
+	}; \
+	svg 'Zilla Slab' 'bold' "`font_size`" "`offset`" 'ov' > $@
 
 logo-test-inkscaped.svg: logo-test-text.svg
 	cp $< $@.tmp.svg

@@ -50,7 +50,7 @@ logo-transformed.svg: part-path part-max part-width part-height
 	}; \
 	svg '$(LOGO_SIZE)' "`cat part-max`" "`cat part-width`" "`cat part-height`" > $@
 
-part-max: part-height part-width
+part-max: part-width part-height
 	expression() { \
 		max "`cat "$$1"`" "`cat "$$2"`"; \
 	}; \

@@ -76,8 +76,8 @@ part-width: logo-path.svg
 logo-path.svg: logo-text.svg
 	cp $< $@.tmp.svg
 	inkscape \
-		--verb EditSelectAll \
 		--verb FitCanvasToDrawing \
+		--verb EditSelectAll \
 		--verb ObjectToPath \
 		--verb SelectionUnGroup \
 		--verb SelectionUnion \

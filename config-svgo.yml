@@ -1,7 +1,4 @@
 multipass: true
-js2svg:
-  pretty: true
-  indent: '  '
 plugins:
   - convertPathData: true
   - removeTitle: true

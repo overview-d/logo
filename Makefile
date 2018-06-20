@@ -23,7 +23,7 @@ html.html: logo-optimized.svg
 		echo '</head>'; \
 		echo '<body>'; \
 	}; \
-	{ header; echo; cat $<; } > $@
+	{ header; echo; cat $<; echo; } > $@
 
 logo-optimized.svg: config-svgo.yml logo-transformed.svg
 	./node_modules/.bin/svgo -o $@ --config $^

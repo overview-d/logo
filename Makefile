@@ -3,7 +3,7 @@ LOGO_TEXT = ov
 
 FONT_FAMILY = Zilla Slab
 FONT_WEIGHT = bold
-FONT_SIZE = 10000
+FONT_SIZE = 1000
 
 all: html.html
 
